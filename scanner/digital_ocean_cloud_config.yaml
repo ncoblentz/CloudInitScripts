@@ -1,0 +1,40 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - tmux
+  - nmap
+  - masscan    
+  - cargo  
+  - cloud-enum
+  - ffuf
+  - xclip
+  - flatpak
+  - curl  
+  - dnsrecon
+  - dnsutils
+  - git
+  - iproute2
+  - iputils-ping
+#  - libpcap-dev
+#  - libu2f-udev
+#  - libvulkan1
+  - python3
+  - python3-pip
+  - wget
+  - whois
+  - openvpn  
+runcmd:  
+  - "mkdir -p /root/.local/bin"
+  - 'echo "export PATH=$PATH:/root/go/bin:/root/.cargo/bin:/root/.local/bin" >> /root/.bashrc'
+  - "snap install go --classic"
+  - "cargo install ripgen"
+  - "cd /root && git clone https://github.com/nullt3r/jfscan.git && cd jfscan && pip3 install ."
+  - "cd /root && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install ./google-chrome-stable_current_amd64.deb"
+  - "cd /root && git clone https://github.com/blechschmidt/massdns.git && cd massdns && make && cp bin/massdns /usr/bin/ &&"
+  - "snap install amass"
+  - "cd /root &&  git clone https://github.com/aboul3la/Sublist3r.git && cd Sublist3r && sudo pip install -r requirements.txt && echo \"python3 /root/Sublist3r/sublist3r.py $@\" > /root/.local/bin/Sublist3r && chmod 700 /root/.local/bin/Sublist3r"
+  - "pip install --upgrade sslyze"
+  - "cd /root && git clone --depth=1 https://github.com/danielmiessler/SecLists.git"
+  - "export GOPATH=/root/go && export HOME=/root && go install github.com/lc/gau/v2/cmd/gau@latest && go install github.com/sensepost/gowitness@latest && go install github.com/d3mondev/puredns/v2@latest && go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest && go install github.com/projectdiscovery/tlsx/cmd/tlsx@latest && go install -v github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest && go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest && go install github.com/tomnomnom/assetfinder@latest && go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest && go install -v github.com/projectdiscovery/cdncheck/cmd/cdncheck@latest && go install github.com/projectdiscovery/asnmap/cmd/asnmap@latest"
+  - reboot
