@@ -1,4 +1,4 @@
-# OpenVPN Instructions
+# Scanner Instructions
 
 ## Digital Ocean
 
