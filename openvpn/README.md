@@ -5,7 +5,9 @@
 ```bash
 $ doctl compute droplet create --image ubuntu-22-10-x64 --size s-1vcpu-1gb --region nyc1 --ssh-keys 38070866 --user-data-file digital_ocean_openvpn_cloud_config.yaml openvpn
 $ watch doctl compute droplet list
+$ #powershell: while (1) {doctl compute droplet list; sleep 5}
 $ export DROPLETIPADDRESS=`doctl compute droplet list openvpn --format PublicIPv4 --no-header`
+$ #powershell: $DROPLETIPADDRESS=$(doctl compute droplet list openvpn --format PublicIPv4 --no-header)
 $ ssh -i ~/.ssh/id_rsa_digital_ocean root@$DROPLETIPADDRESS
 $ tail -f /var/log/cloud-init-output.log #see and debug issues with cloud init script
 $ exit
